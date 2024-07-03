@@ -32,7 +32,7 @@ fields:
     slug:
         label: Slug
         type: slugfield
-        link: "page('blog', 'slug')"
+        link: page('blog', 'slug')
         preset:
           type: slug
           field: title
