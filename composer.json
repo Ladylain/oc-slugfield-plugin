@@ -1,0 +1,8 @@
+{
+    "name": "lucaspalomba/slugfield-plugin",
+    "type": "october-plugin",
+    "description": "Enhanced Slug field for OctoberCMS",
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}
