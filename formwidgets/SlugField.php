@@ -1,7 +1,7 @@
 <?php namespace LucasPalomba\SlugField\FormWidgets;
 
 use Backend\Classes\FormWidgetBase;
-
+use Cms;
 /**
  * SlugField Form Widget
  *
@@ -37,8 +37,18 @@ class SlugField extends FormWidgetBase
         $this->vars['model'] = $this->model;
         // on récupère la config du link et on ajoute la valeur, 
         // tout en verifiatn que le link est bien une URL valide et si besoin on ajoute un slash
-        if ($this->link && filter_var($this->link, FILTER_VALIDATE_URL)) {
-            $link = rtrim($this->link, '/') . '/' . $this->vars['value'];
+        if ($this->link) {
+            if (preg_match("/^page\('(.*)',\s*'(.*)'\)$/", $this->link, $matches)) {
+                // Si le lien est une fonction page(), générer le lien vers cette page
+                $pageName = $matches[1];
+                $paramName = $matches[2];
+                $link = Cms::pageUrl($pageName, [$paramName => $this->vars['value']]);
+            } elseif (filter_var($this->link, FILTER_VALIDATE_URL)) {
+                // Si le lien est une URL valide
+                $link = rtrim($this->link, '/') . '/' . $this->vars['value'];
+            } else {
+                $link = null;
+            }
         } else {
             $link = null;
         }
