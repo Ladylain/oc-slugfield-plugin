@@ -1,4 +1,4 @@
-<?php namespace LucasPalomba\AlpineLodges\FormWidgets;
+<?php namespace LucasPalomba\SlugField\FormWidgets;
 
 use Backend\Classes\FormWidgetBase;
 

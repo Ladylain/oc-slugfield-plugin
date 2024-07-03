@@ -1,10 +1,3 @@
-/*
- * This is a sample StyleSheet file used by SlugField
- *
- * You can delete this file if you want
- */
-
-
 .slug-field > .input-group-append > *:last-child{
     height: 100%;
     border-radius: 0 var(--bs-btn-border-radius) var(--bs-btn-border-radius) 0 !important;
