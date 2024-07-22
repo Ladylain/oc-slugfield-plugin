@@ -35,7 +35,7 @@ class SlugField extends FormWidgetBase
         $this->vars['name'] = $this->formField->getName();
         $this->vars['value'] = $this->getLoadValue();
         $this->vars['model'] = $this->model;
-        // on récupère la config du link et on ajoute la valeur, 
+        // on récupère la config du link et on ajoute la valeur,
         // tout en verifiatn que le link est bien une URL valide et si besoin on ajoute un slash
         if ($this->link) {
             if (preg_match("/^page\('(.*)',\s*'(.*)'\)$/", $this->link, $matches)) {
@@ -80,7 +80,7 @@ class SlugField extends FormWidgetBase
         $this->vars['name'] = $this->formField->getName();
         $this->vars['value'] = $this->model->{$this->formField->fieldName};
         $this->vars['model'] = $this->model;
-        // on récupère la config du link et on ajoute la valeur, 
+        // on récupère la config du link et on ajoute la valeur,
         // tout en verifiatn que le link est bien une URL valide et si besoin on ajoute un slash
         if ($this->link && filter_var($this->link, FILTER_VALIDATE_URL)) {
             $link = rtrim($this->link, '/') . '/' . $this->vars['value'];

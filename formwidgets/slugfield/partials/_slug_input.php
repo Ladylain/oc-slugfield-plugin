@@ -1,5 +1,5 @@
 <div class="input-group slug-field">
-    <input type="text" class="form-control" 
+    <input type="text" class="form-control"
     id="<?= $this->getId('input') ?>"
     name="<?= $name ?>"
     value="<?= $value ?>"
@@ -14,8 +14,8 @@
 </div>
 <?php if(isset($link)): ?>
     <small class="form-text text-muted ps-2 pt-1" style="display: flex !important;gap: 1rem;">
-    <span style="">Lien de prévisualisation:</span> 
-    <a href="<?= $link ?>" target="_blank" style="
+    <span style="">Lien de prévisualisation:</span>
+    <a href="<?= $link ?>" target="_blank" aria-label="slug link" rel="noopener" style="
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
