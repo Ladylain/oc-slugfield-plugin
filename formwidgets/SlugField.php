@@ -90,7 +90,7 @@ class SlugField extends FormWidgetBase
         // le premier match est forcement la page
         // le second est forcement le parametre de la page
         // les suivants si il y en a doivent etre au format key:value et seront ajoutés en parametre de la page
-        $pageName = \trim($matches[0], " '\"");
+        $pageName = trim($matches[0], " '\"");
         $params = [];
         $paramName = trim($matches[1], " '\"");
     
@@ -112,8 +112,8 @@ class SlugField extends FormWidgetBase
             }
     
             $param = explode(':', $value);
-            $paramName = \trim($param[0], " '\"");
-            $paramValue = \trim($param[1], " '\"");
+            $paramName = trim($param[0], " '\"");
+            $paramValue = trim($param[1], " '\"");
             // le format sera $key => $value
             $params[$paramName] = $this->model->{$paramValue};
         }
