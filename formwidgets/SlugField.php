@@ -72,25 +72,51 @@ class SlugField extends FormWidgetBase
     }
 
     protected function makeLink($value){
-        // on récupère la config du link et on ajoute la valeur,
-        // tout en verifiatn que le link est bien une URL valide et si besoin on ajoute un slash
-        if ($this->link) {
-            if (preg_match("/^page\('(.*)',\s*'(.*)'\)$/", $this->link, $matches)) {
-                // Si le lien est une fonction page(), générer le lien vers cette page
-                $pageName = $matches[1];
-                $paramName = $matches[2];
-                $link = Cms::pageUrl($pageName, [$paramName => $this->vars['field']->value]);
-            } elseif (filter_var($this->link, FILTER_VALIDATE_URL)) {
-                // Si le lien est une URL valide
-                $link = rtrim($this->link, '/') . '/' . $this->vars['field']->value;
-            } else {
-                $link = null;
-            }
-        } else {
-            $link = null;
+        if (!$this->link) {
+            return null;
         }
+    
+        if (filter_var($this->link, FILTER_VALIDATE_URL)) {
+            return rtrim($this->link, '/') . '/' . $this->vars['field']->value;
+        }
+    
+        if (!preg_match("/^page\((.*?)\)$/", $this->link, $matches)) {
+            return null;
+        }
+    
+        // Si le lien est une fonction page(), générer le lien vers cette page
+        //on recupere tout ce qu'il y a dans la fonction page()
+        $matches = explode(',', $matches[1]);
+        // le premier match est forcement la page
+        // le second est forcement le parametre de la page
+        // les suivants si il y en a doivent etre au format key:value et seront ajoutés en parametre de la page
+        $pageName = \trim($matches[0], " '\"");
+        $params = [];
+        $paramName = trim($matches[1], " '\"");
+    
+        $params[$paramName] = $this->vars['field']->value;
+        // pour chaque parametre on ajoute le parametre a la page
+        $this->addParams($matches, $params);
+    
+        return Cms::pageUrl($pageName, $params);
+    }
 
-        return $link;
+    private function addParams($matches, &$params) {
+        if (count($matches) <= 2) {
+            return;
+        }
+    
+        foreach ($matches as $key => $value) {
+            if ($key <= 1) {
+                continue;
+            }
+    
+            $param = explode(':', $value);
+            $paramName = \trim($param[0], " '\"");
+            $paramValue = \trim($param[1], " '\"");
+            // le format sera $key => $value
+            $params[$paramName] = $this->model->{$paramValue};
+        }
     }
 
 }
