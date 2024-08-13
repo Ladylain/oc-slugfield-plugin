@@ -32,14 +32,30 @@ fields:
     slug:
         label: Slug
         type: slugfield
-        link: page('blog', 'slug', 'url_param_1':'colum_name_1', 'url_param_2':'colum_name_2')
+        link: page('blog', 'slug')
         preset:
           type: slug
           field: title
 ```
-In this example, the `page('blog', 'slug', 'url_param_1':'colum_name_1', 'url_param_2':'colum_name_2')` function will generate a link to the 'blog' page with the slug as a parameter.
+In this example, the `page('blog', 'slug')` function will generate a link to the 'blog' page with the slug as a parameter.
 
 You can add as many URL parameters as you like, targeting the columns in your template by chaining `'url_param_1':'colum_name_1'` inside the `page()` function.
+
+For example, you want to display link which has this format https://mydomain.com/:category/:slug 
+you can fill link in you YAML like this : 
+```yaml
+fields:
+    title:
+      label: title
+      type: text
+    slug:
+        label: Slug
+        type: slugfield
+        link: page('blog', 'slug', 'category':'category_name')
+        preset:
+          type: slug
+          field: title
+```
 
 Please note: Relationships are not yet taken into account.
 
