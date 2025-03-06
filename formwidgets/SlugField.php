@@ -55,8 +55,7 @@ class SlugField extends FormWidgetBase
         // on passe $newValue dans la fonction selon le type du preset (slug, camel)
         $newValue = ($this->formField->preset['type'] == 'slug') ? str_slug($newValue) : camel_case($newValue);
 
-        $this->model->{$this->formField->fieldName} = $newValue;
-        $this->model->slugAttributes();
+        $this->model->{$this->formField->fieldName} = $this->generateUniqueSlug($newValue);
         //not necessary to save model now
         //$this->model->save();
         $this->vars['field'] = $this->formField;
@@ -69,6 +68,27 @@ class SlugField extends FormWidgetBase
         return [
             '#' . $this->getId('input') . '_container' => $this->makePartial('slug_input')
         ];
+    }
+
+    protected function generateUniqueSlug($slug){
+        $model = $this->model;
+        $slugField = $this->formField->fieldName;
+        $slugValue = $slug;
+        $counter = 1;
+        $originalSlug = $slugValue;
+
+        // On boucle tant que le slug existe deja
+        while ($model
+                ->newQuery()
+                ->where('id', '!=', $model->id)
+                ->where($slugField, $slugValue)
+                ->count() > 0
+        ) {
+            $slugValue = $originalSlug . '-' . $counter;
+            $counter++;
+        }
+
+        return $slugValue;
     }
 
     protected function makeLink($value){
