@@ -1,4 +1,5 @@
 <div class="input-group slug-field">
+    <span class="input-group-text">/</span>
     <input 
         type="text" 
         class="form-control"
@@ -10,7 +11,7 @@
         <?= $field->getAttributes() ?>
     />
     <div class="input-group-append">
-        <button data-control="tooltip" data-request-complete="$(this).tooltip('dispose');" title="<?= Lang::get('lucaspalomba.slugfield::lang.slug.regenerate_tooltip'); ?>" type="button" class="btn btn-sm btn-outline-secondary" data-request="<?= $this->getEventHandler('onRefreshSlug') ?>">
+        <button data-control="tooltip" data-attach-loading data-request-complete="$(this).tooltip('dispose');" title="<?= Lang::get('lucaspalomba.slugfield::lang.slug.regenerate_tooltip'); ?>" type="button" class="btn btn-sm btn-outline-secondary" data-request="<?= $this->getEventHandler('onRefreshSlug') ?>">
             <i class="icon-refresh" ></i>
         </button>
 

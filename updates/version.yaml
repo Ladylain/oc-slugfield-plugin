@@ -2,3 +2,4 @@ v1.0.1: First version of SlugField
 v1.0.2: Fixes, Lang and optimizations
 v1.0.3: SlugField improvements
 v1.0.4: Remove Sluggable trait dependency
+v1.0.5: prepend input with route prefix
